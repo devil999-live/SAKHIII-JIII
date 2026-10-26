@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>😌𝐑𝐚𝐝𝐡𝐞💗𝐑𝐚𝐧𝐢🦚</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter & Dancing Script -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0c0a1d;
+            overflow-x: hidden;
+        }
+        .romantic-font {
+            font-family: 'Dancing Script', cursive;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); opacity: 1; }
+            50% { transform: translateY(-120px) rotate(20deg); opacity: 0.9; }
+            100% { transform: translateY(-250px) rotate(-20deg); opacity: 0; }
+        }
+        .floating-emoji {
+            position: absolute;
+            animation: float 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+        .card-stack {
+            perspective: 1000px;
+        }
+        /* Dynamic random directional card swipe animations */
+        .swipe-left {
+            transform: translateX(-160%) translateY(40px) rotate(-35deg) scale(0.85);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .swipe-right {
+            transform: translateX(160%) translateY(40px) rotate(35deg) scale(0.85);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .swipe-up {
+            transform: translateY(-160%) rotate(-15deg) scale(0.85);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .swipe-down {
+            transform: translateY(160%) rotate(15deg) scale(0.85);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-enter {
+            transform: scale(0.9);
+            opacity: 0;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        @keyframes popIn {
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        /* Wax Seal Pulse */
+        @keyframes sealPulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(225, 29, 72, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); }
+        }
+        .wax-seal {
+            animation: sealPulse 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-950 via-purple-950 to-rose-950 text-white min-h-screen flex flex-col items-center justify-center relative selection:bg-pink-500 selection:text-white">
+
+    <!-- Ambient Background Interactive Glows & Starfield Particles -->
+    <div class="absolute top-10 left-10 w-80 h-80 bg-pink-500/15 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+    <div class="absolute bottom-10 right-10 w-96 h-96 bg-purple-500/15 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+
+    <!-- MAIN CONTAINER -->
+    <main class="w-full max-w-md mx-auto p-4 z-10 flex flex-col items-center justify-center min-h-screen">
+
+        <!-- STAGE 0: TIME CAPSULE WAX SEAL WELCOME (Audio starts automatically on open) -->
+        <div id="envelope-section" class="w-full text-center flex flex-col items-center space-y-6 transition-all duration-700">
+            <div class="w-24 h-24 bg-gradient-to-br from-rose-600 to-pink-700 rounded-full flex items-center justify-center shadow-2xl wax-seal cursor-pointer border-4 border-rose-300/40" onclick="openTimeCapsule()">
+                <i class="fa-solid fa-envelope-open-text text-3xl text-white"></i>
+            </div>
+            <div class="space-y-2">
+                <h2 class="text-2xl font-bold romantic-font text-pink-300">🧿Madam Jiii🦚</h2>
+                <p class="text-xs text-gray-300">Tap the Button for surprise 👇</p>
+            </div>
+            <button onclick="openTimeCapsule()" class="py-3 px-8 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full font-semibold text-sm shadow-xl shadow-pink-500/30 hover:scale-105 active:scale-95 transition cursor-pointer border border-white/20">
+                Break Seal & Open 🚀
+            </button>
+        </div>
+
+        <!-- STAGE 1: COUNTDOWN SCREEN -->
+        <div id="countdown-section" class="w-full text-center flex flex-col items-center space-y-6 hidden transition-all duration-700">
+            <div class="inline-block p-4 bg-white/10 backdrop-blur-md rounded-full shadow-lg border border-white/20 animate-bounce">
+                <i class="fa-solid fa-clock text-4xl text-pink-400"></i>
+            </div>
+            
+            <div class="space-y-2">
+                <h1 class="text-3xl font-bold tracking-wide romantic-font text-pink-300 md:text-4xl">Something Special Is Waiting... 🥹🪷✨</h1>
+                <p class="text-gray-300 text-sm">Counting down to <span class="font-semibold text-pink-400">11:11 PM</span></p>
+		
+            </div>
+
+            <!-- Timer Display Card (Hours, Minutes, Seconds) -->
+            <div class="w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-2xl grid grid-cols-3 gap-3 text-center">
+                <div class="bg-white/10 p-3 rounded-2xl">
+                    <span id="hours" class="text-2xl font-bold text-pink-300">00</span>
+                    <span class="block text-[10px] text-gray-400 uppercase tracking-widest mt-1">Hours</span>
+                </div>
+                <div class="bg-white/10 p-3 rounded-2xl">
+                    <span id="minutes" class="text-2xl font-bold text-pink-300">00</span>
+                    <span class="block text-[10px] text-gray-400 uppercase tracking-widest mt-1">Mins</span>
+                </div>
+                <div class="bg-white/10 p-3 rounded-2xl">
+                    <span id="seconds" class="text-2xl font-bold text-pink-300">00</span>
+                    <span class="block text-[10px] text-gray-400 uppercase tracking-widest mt-1">Secs</span>
+                </div>
+            </div>
+
+            <!-- Unlock Container -->
+            <div id="unlock-container" class="w-full pt-2 hidden">
+                <button onclick="enterExperience()" class="w-full py-4 px-6 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 rounded-2xl font-semibold text-lg shadow-xl shadow-pink-500/30 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center space-x-3 cursor-pointer border border-white/20">
+                    <span>✨ Enter Your Surprise ✨</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <div class="pt-2 text-center">
+
+           <!-- Paste your button right here: -->
+
+  	<button onclick="forceUnlock()" class="mt-2 text-[11px] text-indigo-300 underline hover:text-white transition cursor-pointer">⚡ Test / Preview Directly (Bypass Timer)</button>  
+
+	    </div>
+
+        </div>
+
+        <!-- STAGE 2: 10-CARD ALTERNATING EXPERIENCE (5 SCRATCH MESSAGES + 5 POLAROID PHOTOS) -->
+        <div id="experience-section" class="w-full hidden flex flex-col items-center space-y-4">
+            <!-- Top Progress Header -->
+            <div class="w-full flex justify-between items-center px-2">
+                <span class="romantic-font text-2xl text-pink-300">🪷 Sakhiii Jiii 🤍</span>
+                <span id="card-counter" class="text-xs px-3 py-1 bg-white/10 rounded-full font-medium text-purple-200">Card 1 of 10</span>
+            </div>
+
+            <!-- Card Stack Container -->
+            <div class="w-full relative card-stack h-[610px] flex items-center justify-center">
+                <div id="card-container" class="w-full h-full relative flex items-center justify-center">
+                    <!-- Cards injected dynamically via JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 3: FINAL REVEAL WISH & INFINITE RAIN -->
+        <div id="final-section" class="w-full hidden flex flex-col items-center space-y-5 text-center card-enter">
+            <div class="w-16 h-16 bg-gradient-to-tr from-pink-500 to-yellow-400 rounded-full flex items-center justify-center shadow-2xl animate-bounce mx-auto">
+                <i class="fa-solid fa-heart text-2xl text-white"></i>
+            </div>
+            
+            <div class="space-y-3 bg-white/5 backdrop-blur-xl border border-white/10 p-5 rounded-3xl shadow-2xl w-full">
+                <h2 class="text-2xl romantic-font text-pink-300">𝒟𝐸𝒜𝑅, 𝑀𝒜𝒟𝒜𝑀 𝒥𝐼𝐼𝐼🦚✨🧿</h2>
+                <p class="text-xs text-gray-200 leading-relaxed">
+                    ᴍᴀᴅᴀᴍ ᴊɪɪɪ, ʏᴏᴜ ʟɪᴛᴇʀᴀʟʟʏ ᴍᴀᴅᴇ ᴍʏ ᴅᴀʏ. ᴛʜᴀɴᴋ ʏᴏᴜ ꜰᴏʀ ʙᴇɪɴɢ ᴍʏ ᴄᴏᴍꜰᴏʀᴛ ꜱᴀꜰᴇ ᴢᴏɴᴇ, ᴀɴᴅ ᴍʏ ꜰᴀᴠᴏʀɪᴛᴇ ᴘᴀʀᴛ ᴏꜰ ᴇᴠᴇʀʏᴅᴀʏ ʟɪꜰᴇ. ᴀʟᴡᴀʏ𝐬 ᴀɴᴅ ꜰᴏʀᴇᴠᴇʀ! ☺️💖🌸
+                </p>
+
+                <!-- Reaction Emojis for Infinite Heavy Celebration Rain -->
+                <div class="pt-2">
+                    <p class="text-[11px] text-pink-300 font-medium mb-2">Tap a reaction for surprise 🌧️✨</p>
+                    <div class="flex justify-center space-x-3 text-2xl">
+                        <button onclick="triggerInfiniteRain('💖')" class="p-2 bg-white/10 rounded-full hover:scale-125 transition active:scale-95 shadow cursor-pointer">💖</button>
+                        <button onclick="triggerInfiniteRain('👑')" class="p-2 bg-white/10 rounded-full hover:scale-125 transition active:scale-95 shadow cursor-pointer">👑</button>
+                        <button onclick="triggerInfiniteRain('✨')" class="p-2 bg-white/10 rounded-full hover:scale-125 transition active:scale-95 shadow cursor-pointer">✨</button>
+                        <button onclick="triggerInfiniteRain('🥂')" class="p-2 bg-white/10 rounded-full hover:scale-125 transition active:scale-95 shadow cursor-pointer">🥂</button>
+                        <button onclick="triggerInfiniteRain('🫂')" class="p-2 bg-white/10 rounded-full hover:scale-125 transition active:scale-95 shadow cursor-pointer">🫂</button>
+                        <button onclick="triggerInfiniteRain('🤍')" class="p-2 bg-white/10 rounded-full hover:scale-125 transition active:scale-95 shadow cursor-pointer">🤍</button>
+                    </div>
+                </div>
+
+                <div class="pt-3">
+                    <button onclick="restartExperience()" class="w-full py-2.5 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-semibold transition border border-white/10 cursor-pointer">
+                        🔄 Replay Experience
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Floating Emojis & Stardust Cursor Trail Layer -->
+    <div id="floating-emojis-layer" class="absolute inset-0 overflow-hidden pointer-events-none z-0"></div>
+    <div id="rain-layer" class="absolute inset-0 overflow-hidden pointer-events-none z-50"></div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // --- 1. LOCAL MP3 BACKGROUND MUSIC (CONTINUOUS LOOPING) ---
+        let bgMusic = null;
+
+        function startBackgroundMusic() {
+            if (bgMusic) return;
+            try {
+                bgMusic = new Audio('music.mp3');
+                bgMusic.loop = true;
+                bgMusic.volume = 0.6;
+                bgMusic.play().catch(error => {
+                    console.log("Audio autoplay waiting for user interaction.");
+                });
+            } catch (e) {
+                console.log("Audio error:", e);
+            }
+        }
+
+        // --- 2. CURSOR STARDUST TRAIL ---
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.3) return;
+            createStardust(e.clientX, e.clientY);
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0 && Math.random() > 0.3) {
+                createStardust(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        });
+
+        function createStardust(x, y) {
+            const star = document.createElement('div');
+            star.className = 'absolute pointer-events-none text-pink-300 text-xs transition-all duration-700 z-50';
+            star.innerHTML = Math.random() > 0.5 ? '✨' : '🤍';
+            star.style.left = `${x}px`;
+            star.style.top = `${y}px`;
+            document.body.appendChild(star);
+
+            setTimeout(() => {
+                star.style.transform = `translate(${(Math.random() - 0.5) * 50}px, ${-40 - Math.random() * 40}px) scale(0.3)`;
+                star.style.opacity = '0';
+            }, 20);
+
+            setTimeout(() => star.remove(), 750);
+        }
+
+        // --- TIME CAPSULE OPENING ---
+        function openTimeCapsule() {
+            startBackgroundMusic();
+            document.getElementById('envelope-section').classList.add('hidden');
+            document.getElementById('countdown-section').classList.remove('hidden');
+        }
+
+	// --- TESTING/PREVIEW BUTTON ---
+
+	    function forceUnlock() {
+            startBackgroundMusic();
+            document.getElementById('countdown-section').classList.add('hidden');
+            document.getElementById('experience-section').classList.remove('hidden');
+            currentCardIndex = 0;
+            renderCurrentCard();
+            startFloatingEmojis();
+        }
+
+        // --- COUNTDOWN & DATE LOGIC ---
+        // Set target date/time: October 26, 2026 at 18:42 (6:42 PM) for testing. Change to (23, 11) for 11:11 PM.
+        const targetDate = new Date(2026, 9, 26, 23, 11, 0); 
+
+        function checkInstantUnlock() {
+            const now = new Date();
+            if (now >= targetDate) {
+                triggerUnlockState();
+                return true;
+            }
+            return false;
+        }
+
+        function updateCountdown() {
+            if (checkInstantUnlock()) return;
+
+            const currentTime = new Date().getTime();
+            const distance = targetDate.getTime() - currentTime;
+
+            if (distance <= 0) {
+                triggerUnlockState();
+                return;
+            }
+
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+        }
+
+        function triggerUnlockState() {
+            document.getElementById('unlock-container').classList.remove('hidden');
+            document.getElementById('hours').innerText = '00';
+            document.getElementById('minutes').innerText = '00';
+            document.getElementById('seconds').innerText = '00';
+        }
+
+        function enterExperience() {
+            startBackgroundMusic();
+            document.getElementById('countdown-section').classList.add('hidden');
+            document.getElementById('experience-section').classList.remove('hidden');
+            currentCardIndex = 0;
+            renderCurrentCard();
+            startFloatingEmojis();
+        }
+
+        // --- 10 CARDS DATA (5 SCRATCH MESSAGES + 5 POLAROID PHOTOS ALTERNATING) ---
+        const cardsData = [
+            {
+                type: "scratch",
+                badge: "Special Message 🤍",
+                title: "Card 1",
+                secretText: "𝐌𝐚𝐝𝐚𝐦 𝐉𝐢𝐢𝐢... 🌸 𝐀𝐚𝐩 𝐦𝐮𝐣𝐡𝐞 𝐩𝐲𝐚𝐚𝐫 𝐬𝐞 𝐁𝐚𝐤𝐚𝐬𝐮𝐫𝐫𝐫 👹, 𝐆𝐨𝐥𝐮𝐫𝐚𝐚𝐚𝐦 😌, 𝐀𝐚𝐚𝐥𝐨𝐨𝐨 🥔, 𝐲𝐚 𝐤𝐚𝐛𝐡𝐢 𝐤𝐚𝐛𝐡𝐢 𝐌𝐚𝐡𝐚𝐩𝐚𝐚𝐚𝐠𝐚𝐥 🤪 𝐛𝐮𝐥𝐚𝐭𝐢 𝐡𝐨 𝐧𝐚... 𝐤𝐚𝐬𝐚𝐦 𝐬𝐞 𝐲𝐞 𝐬𝐚𝐚𝐫𝐞 𝐧𝐢𝐜𝐤𝐧𝐚𝐦𝐞𝐬 𝐦𝐞𝐫𝐞 𝐥𝐢𝐲𝐞 𝐝𝐮𝐧𝐢𝐲𝐚 𝐤𝐢 𝐬𝐚𝐛𝐬𝐞 𝐩𝐲𝐚𝐚𝐫𝐢 𝐜𝐡𝐞𝐞𝐳 🤍 𝐡𝐚𝐢𝐧! 𝐚𝐮𝐫 𝐬𝐚𝐛𝐬𝐞 𝐬𝐩𝐞𝐜𝐢𝐚𝐥 𝐥𝐚𝐠𝐭𝐚 𝐡𝐚𝐢. 🫶🏻"
+            },
+            {
+                type: "polaroid",
+                image: "photo1.jpg",
+                fallbackSvg: `<svg class="w-full h-full object-cover rounded-xl" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff758c"/><stop offset="100%" stop-color="#ff7eb3"/></linearGradient></defs>
+                    <rect width="200" height="200" fill="url(#g1)"/>
+                    <circle cx="100" cy="80" r="35" fill="#fff" opacity="0.3"/>
+                    <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="42">🥺🎀</text>
+                </svg>`,
+                caption: "Madam Jiii, so cute since childhood! 🌸",
+                badge: "Childhood Memory 📸"
+            },
+            {
+                type: "scratch",
+                badge: "Sweet Memory 🥣",
+                title: "Card 2",
+                secretText: "𝙎𝙖𝙠𝙝𝙞𝙞𝙞 𝙅𝙞𝙞𝙞, 𝙖𝙖𝙥 𝙗𝙖𝙘𝙝𝙥𝙖𝙣 𝙨𝙚 𝙝𝙞 🥹 𝙞𝙩𝙣𝙞 𝙯𝙮𝙖𝙙𝙖 𝙘𝙪𝙩𝙚 𝙩𝙝𝙞 𝙣𝙖... 🎀 𝙖𝙪𝙧 𝙟𝙖𝙗 𝙖𝙖𝙥𝙣𝙚 𝙖𝙥𝙣𝙚 𝙝𝙖𝙖𝙩𝙝𝙤𝙣 𝙨𝙚 𝙢𝙚𝙧𝙚 𝙡𝙞𝙮𝙚 𝘽𝙖𝙙𝙖𝙢 𝙠𝙖 𝙃𝙖𝙡𝙬𝙖 🥣 𝙗𝙖𝙣𝙖𝙮𝙖 𝙩𝙝𝙖, 𝙩𝙤𝙝 𝙪𝙨𝙢𝙚 𝙞𝙩𝙣𝙖 𝙨𝙖𝙧𝙖 𝙥𝙮𝙖𝙖𝙧 ✨ 𝙩𝙝𝙖 𝙠𝙞 𝙢𝙚𝙧𝙖 𝙙𝙞𝙡 𝙝𝙞 𝙠𝙝𝙪𝙨𝙝 𝙝𝙤 𝙜𝙖𝙮𝙖 𝙩𝙝𝙖! 🧿"
+            },
+            {
+                type: "polaroid",
+                image: "photo2.jpg",
+                fallbackSvg: `<svg class="w-full h-full object-cover rounded-xl" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <defs><linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#a18cd1"/><stop offset="100%" stop-color="#fbc2eb"/></linearGradient></defs>
+                    <rect width="200" height="200" fill="url(#g2)"/>
+                    <circle cx="100" cy="90" r="40" fill="#fff" opacity="0.3"/>
+                    <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="42">🥣✨</text>
+                </svg>`,
+                caption: "Badam Ka Halwa special moments 🫶🏻",
+                badge: "Sweet Memory 📸"
+            },
+            {
+                type: "scratch",
+                badge: "Musical Vibe 🎶",
+                title: "Card 3",
+                secretText: "ᴀᴜʀ ᴡᴏ ᴠɪʀᴀʟ ꜱᴏɴɢ \"ꜱᴀᴍɪ ꜱᴀᴍɪ\" 🎶 ᴊᴀʙ ᴀᴀᴘɴᴇ ᴀᴘɴɪ ꜱᴡᴇᴇᴛ ᴀᴀᴡᴀᴢ 🎙️ ᴍᴇɪɴ ᴍᴜᴊʜᴇ ʙʜᴇᴊᴀ ᴛʜᴀ ɴᴀ... ꜱᴀᴄʜ ᴋᴀʜᴜɴ ᴛᴏʜ ᴜꜱ ᴅɪɴ ᴋᴇ ʙᴀᴀᴅ ꜱᴇ ᴡᴏ ᴍᴇʀᴀ ᴀʙꜱᴏʟᴜᴛᴇ ꜰᴀᴠᴏʀɪᴛᴇ ꜱᴏɴɢ 💃 ʙᴀɴ ɢᴀʏᴀ ʜᴀɪ! ᴀᴀᴘᴋɪ ᴀᴀᴡᴀᴢ ꜱᴜɴᴋᴇ ᴅɪɴ ʙᴀɴ ᴊᴀᴛᴀ ʜᴀɪ ᴍᴇʀᴀ. 🥰"
+            },
+            {
+                type: "polaroid",
+                image: "photo3.jpg",
+                fallbackSvg: `<svg class="w-full h-full object-cover rounded-xl" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <defs><linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fad0c4"/><stop offset="100%" stop-color="#ffd1ff"/></linearGradient></defs>
+                    <rect width="200" height="200" fill="url(#g3)"/>
+                    <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="42">🎶💃</text>
+                </svg>`,
+                caption: "Sakhiii Jiii's sweet melodies! 🎶",
+                badge: "Musical Vibe 🎶"
+            },
+            {
+                type: "scratch",
+                badge: "Chocolaty Moment 🍫",
+                title: "Card 4",
+                secretText: "𝐀𝐮𝐫 𝐰𝐨 🍫 𝐜𝐡𝐨𝐜𝐨𝐥𝐚𝐭𝐞 𝐚𝐚𝐩𝐧𝐞 𝐦𝐮𝐣𝐡𝐞 𝐝𝐢 𝐭𝐡𝐢, 𝐚𝐮𝐫 𝐩𝐡𝐢𝐫 𝐚𝐚𝐩𝐤𝐞 𝐮𝐬 𝐬𝐰𝐞𝐞𝐭 𝐠𝐞𝐬𝐭𝐮𝐫𝐞 𝐦𝐞𝐢𝐧 𝐦𝐮𝐣𝐡𝐞 𝐣𝐨 𝐡𝐮𝐠 𝐦𝐢𝐥𝐚 𝐧𝐚... 𝐰𝐨 𝐡𝐮𝐠 𝐢𝐭𝐧𝐚 𝐳𝐲𝐚𝐝𝐚 𝐜𝐨𝐦𝐟𝐨𝐫𝐭𝐢𝐧𝐠 🫂 𝐭𝐡𝐚 𝐤𝐢 𝐦𝐞𝐫𝐞 𝐩𝐚𝐚𝐬 𝐞𝐱𝐩𝐫𝐞𝐬𝐬 𝐤𝐚𝐫𝐧𝐞 𝐤𝐞 𝐥𝐢𝐲𝐞 𝐰𝐨𝐫𝐝𝐬 𝐡𝐢 𝐧𝐚𝐡𝐢 𝐭𝐡𝐞! 🥹🤍"
+            },
+            {
+                type: "polaroid",
+                image: "photo4.jpg",
+                fallbackSvg: `<svg class="w-full h-full object-cover rounded-xl" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <defs><linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fbc2eb"/><stop offset="100%" stop-color="#a6c1ee"/></linearGradient></defs>
+                    <rect width="200" height="200" fill="url(#g4)"/>
+                    <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="42">🍫🫂</text>
+                </svg>`,
+                caption: "That Special Hug 🫂",
+                badge: "Comfort Moment 📸"
+            },
+            {
+                type: "scratch",
+                badge: "Precious Smiles ✨",
+                title: "Card 5",
+                secretText: "𝙅𝙖𝙗 𝙝𝙪𝙢 𝙖𝙡𝙖𝙜 𝙧𝙖𝙨𝙩𝙚 𝙟𝙖𝙖 𝙧𝙖𝙝𝙚 𝙩𝙝𝙚 👀 𝙖𝙪𝙧 𝙖𝙖𝙥𝙠𝙖 𝙗𝙖𝙖𝙧 𝙗𝙖𝙖𝙧 𝙢𝙪𝙙𝙠𝙖𝙧 𝙙𝙚𝙠𝙝𝙣𝙖... 𝙖𝙪𝙧 𝙝𝙪𝙢𝙖𝙧𝙖 𝙬𝙤 𝙥𝙮𝙖𝙖𝙧𝙞 𝙨𝙞 𝙨𝙢𝙞𝙡𝙚 𝙚𝙭𝙘𝙝𝙖𝙣𝙜𝙚 𝙠𝙖𝙧𝙣𝙖!  𝙃𝙖𝙮𝙚𝙚𝙚𝙚𝙚𝙚 ✨ 𝙎𝙖𝙘𝙝 𝙗𝙖𝙩𝙖𝙪𝙣 𝙣𝙖! 𝘽𝙖𝙨 𝙖𝙖𝙥𝙠𝙞 𝙖𝙖𝙣𝙠𝙝𝙚𝙣 𝙟𝙖𝙗 𝙖𝙞𝙨𝙚 𝙙𝙚𝙠𝙝𝙩𝙞 𝙝𝙖𝙞𝙣 𝙣𝙖 🌸, 𝙩𝙤𝙝 𝙢𝙖𝙞𝙣 𝙨𝙖𝙘𝙝 𝙢𝙚𝙞𝙣 𝙥𝙞𝙜𝙝𝙖𝙡 𝙟𝙖𝙩𝙖 𝙝𝙤𝙤𝙣 𝙮𝙖𝙖𝙧! 🙈"
+            },
+            {
+                type: "polaroid",
+                image: "photo5.jpg",
+                fallbackSvg: `<svg class="w-full h-full object-cover rounded-xl" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <defs><linearGradient id="g5" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fdcbf1"/><stop offset="100%" stop-color="#e6dee9"/></linearGradient></defs>
+                    <rect width="200" height="200" fill="url(#g5)"/>
+                    <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="42">✨🧿</text>
+                </svg>`,
+                caption: "Always and forever best friends! 🤍",
+                badge: "Polaroid Memory 📸"
+            }
+        ];
+
+        let currentCardIndex = 0;
+
+        function renderCurrentCard() {
+            const container = document.getElementById('card-container');
+            const counter = document.getElementById('card-counter');
+            
+            if (currentCardIndex >= cardsData.length) {
+                document.getElementById('experience-section').classList.add('hidden');
+                document.getElementById('final-section').classList.remove('hidden');
+                return;
+            }
+
+            counter.innerText = `Card ${currentCardIndex + 1} of ${cardsData.length}`;
+            const card = cardsData[currentCardIndex];
+            const cardTheme = "bg-gradient-to-br from-indigo-900/95 to-rose-950/98 border-pink-500/40";
+
+            if (card.type === 'polaroid') {
+                container.innerHTML = `
+                    <div id="active-card" class="w-full h-full absolute inset-0 ${cardTheme} backdrop-blur-2xl border rounded-3xl p-5 shadow-2xl flex flex-col justify-between card-enter select-none cursor-pointer" onclick="nextCardRandomSwipe()">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs px-3 py-1 rounded-full border bg-white/10 border-white/20 text-pink-200 font-medium">
+                                ${card.badge}
+                            </span>
+                            <span class="text-2xl">🤍</span>
+                        </div>
+
+                        <div class="bg-white p-3 pb-4 rounded-2xl shadow-xl text-gray-800 transform rotate-1 mx-2 my-auto">
+                            <div class="w-full h-64 rounded-xl overflow-hidden bg-gray-100 flex items-center justify-center relative">
+                                <img src="${card.image}" alt="Memory" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                <div class="w-full h-full absolute inset-0" style="display:none;">
+                                    ${card.fallbackSvg}
+                                </div>
+                            </div>
+                            <p class="romantic-font text-xl text-center text-gray-700 mt-3">${card.caption}</p>
+                        </div>
+
+                        <div class="text-center pb-2">
+                            <p class="text-[11px] text-pink-300 font-semibold tracking-wider uppercase">Tap anywhere to continue ➔</p>
+                        </div>
+                    </div>
+                `;
+            } else if (card.type === 'scratch') {
+                container.innerHTML = `
+                    <div id="active-card" class="w-full h-full absolute inset-0 ${cardTheme} backdrop-blur-2xl border rounded-3xl p-4 shadow-2xl flex flex-col justify-between card-enter select-none">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs px-3 py-1 rounded-full border bg-white/10 border-white/20 text-pink-200 font-medium">
+                                ${card.badge}
+                            </span>
+                            <span class="text-2xl">💌</span>
+                        </div>
+
+                        <!-- Vertically larger scratch box -->
+                        <div id="scratch-wrapper" class="relative w-full h-[410px] my-auto rounded-2xl overflow-hidden bg-white/10 border border-white/20 shadow-inner flex items-center justify-center">
+                            <!-- Hidden Secret Message -->
+                            <div class="absolute inset-0 p-5 flex flex-col items-center justify-center text-center space-y-3 z-0 overflow-y-auto">
+                                <i class="fa-solid fa-heart text-2xl text-pink-400 animate-pulse"></i>
+                                <p class="text-xs text-gray-100 leading-relaxed font-medium">${card.secretText}</p>
+                            </div>
+
+                            <!-- Canvas Scratch Layer -->
+                            <canvas id="scratch-canvas" class="absolute inset-0 z-10 w-full h-full cursor-crosshair touch-none rounded-2xl"></canvas>
+                        </div>
+
+                        <div class="text-center pb-1 flex justify-between items-center px-2">
+                            <span class="text-[10px] text-pink-300 italic">Scratch to reveal message</span>
+                            <button onclick="nextCardRandomSwipe()" class="px-4 py-1.5 bg-pink-500/80 hover:bg-pink-500 text-white rounded-xl text-xs font-semibold shadow transition cursor-pointer">
+                                Next Card ➔
+                            </button>
+                        </div>
+                    </div>
+                `;
+                // Initialize canvas on next animation frame
+                requestAnimationFrame(initScratchCanvas);
+            }
+        }
+
+        // --- SCRATCH CANVAS LOGIC WITH 50% AUTO-REVEAL & PARTY POPPERS ---
+        function initScratchCanvas() {
+            const canvas = document.getElementById('scratch-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+            const width = canvas.offsetWidth || 300;
+            const height = canvas.offsetHeight || 410;
+            canvas.width = width;
+            canvas.height = height;
+
+            if (width === 0 || height === 0) return;
+
+            // Fill canvas with opaque purple scratch coating
+            ctx.fillStyle = '#6b21a8';
+            ctx.fillRect(0, 0, width, height);
+
+            let isDrawing = false;
+            let revealed = false;
+
+            function scratch(e) {
+                if (revealed) return;
+                const rect = canvas.getBoundingClientRect();
+                const clientX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+                const clientY = e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
+                const x = clientX - rect.left;
+                const y = clientY - rect.top;
+
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath();
+                ctx.arc(x, y, 40, 0, Math.PI * 2, false);
+                ctx.fill();
+
+                checkScratchPercentage(ctx, width, height);
+            }
+
+            function checkScratchPercentage(context, w, h) {
+                if (revealed || w === 0 || h === 0) return;
+                try {
+                    const imgData = context.getImageData(0, 0, w, h);
+                    let transparentPixels = 0;
+                    const totalPixels = imgData.data.length / 4;
+                    for (let i = 3; i < imgData.data.length; i += 4) {
+                        if (imgData.data[i] < 128) transparentPixels++;
+                    }
+                    const percentage = (transparentPixels / totalPixels) * 100;
+                    if (percentage > 50) {
+                        revealed = true;
+                        canvas.style.transition = 'opacity 0.6s ease-out';
+                        canvas.style.opacity = '0';
+                        setTimeout(() => canvas.remove(), 600);
+                        triggerPartyPoppers();
+                    }
+                } catch (err) {
+                    console.log("Canvas check skipped");
+                }
+            }
+
+            canvas.addEventListener('mousedown', (e) => { isDrawing = true; scratch(e); });
+            canvas.addEventListener('mousemove', (e) => { if (isDrawing) scratch(e); });
+            window.addEventListener('mouseup', () => isDrawing = false);
+
+            canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); e.preventDefault(); }, {passive: false});
+            canvas.addEventListener('touchmove', (e) => { if (isDrawing) scratch(e); e.preventDefault(); }, {passive: false});
+            window.addEventListener('touchend', () => isDrawing = false);
+        }
+
+        function triggerPartyPoppers() {
+            const wrapper = document.getElementById('scratch-wrapper');
+            if (!wrapper) return;
+            for (let i = 0; i < 40; i++) {
+                const span = document.createElement('span');
+                span.className = 'absolute text-xl z-30 pointer-events-none';
+                span.innerHTML = Math.random() > 0.5 ? '🎉' : '✨';
+                span.style.left = '50%';
+                span.style.top = '50%';
+                span.style.transition = 'all 0.8s ease-out';
+                wrapper.appendChild(span);
+
+                setTimeout(() => {
+                    const angle = Math.random() * Math.PI * 2;
+                    const dist = 70 + Math.random() * 110;
+                    span.style.transform = `translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px) scale(1.5)`;
+                    span.style.opacity = '0';
+                }, 20);
+
+                setTimeout(() => span.remove(), 800);
+            }
+        }
+
+        // --- RANDOM DIRECTIONAL CARD SWIPE ---
+        function nextCardRandomSwipe() {
+            const activeCard = document.getElementById('active-card');
+            if (!activeCard) return;
+
+            const directions = ['swipe-left', 'swipe-right', 'swipe-up', 'swipe-down'];
+            const randomDir = directions[Math.floor(Math.random() * directions.length)];
+            activeCard.classList.add(randomDir);
+
+            setTimeout(() => {
+                currentCardIndex++;
+                renderCurrentCard();
+            }, 450);
+        }
+
+        // --- RESTART EXPERIENCE ---
+        function restartExperience() {
+            document.getElementById('final-section').classList.add('hidden');
+            currentCardIndex = 0;
+            document.getElementById('experience-section').classList.remove('hidden');
+            renderCurrentCard();
+        }
+
+        // --- FLOATING EMOJIS BACKGROUND ---
+        function startFloatingEmojis() {
+            const emojiList = ['💖', '✨', '🌸', '🍫', '🤍', '🫂', '💫', '👑'];
+            const layer = document.getElementById('floating-emojis-layer');
+
+            setInterval(() => {
+                if (layer.children.length > 25) return;
+
+                const span = document.createElement('span');
+                span.className = 'floating-emoji text-2xl';
+                span.innerText = emojiList[Math.floor(Math.random() * emojiList.length)];
+                
+                const randomX = Math.random() * window.innerWidth;
+                span.style.left = `${randomX}px`;
+                span.style.bottom = '-40px';
+                
+                const duration = 4 + Math.random() * 3;
+                span.style.animationDuration = `${duration}s`;
+
+                layer.appendChild(span);
+
+                setTimeout(() => span.remove(), duration * 1000);
+            }, 350);
+        }
+
+        // --- INFINITE HEAVY CELEBRATION RAIN LOOP (UNLIMITED & DENSE) ---
+        let rainInterval = null;
+        function triggerInfiniteRain(emoji) {
+            if (rainInterval) clearInterval(rainInterval);
+            const layer = document.getElementById('rain-layer');
+            
+            rainInterval = setInterval(() => {
+                for (let i = 0; i < 45; i++) {
+                    const span = document.createElement('span');
+                    span.className = 'absolute text-2xl pointer-events-none';
+                    span.innerText = emoji;
+                    span.style.left = `${Math.random() * 100}%`;
+                    span.style.top = '-40px';
+                    span.style.transition = `transform ${0.7 + Math.random() * 1.0}s linear, opacity 1.5s linear`;
+                    layer.appendChild(span);
+
+                    setTimeout(() => {
+                        span.style.transform = `translateY(${window.innerHeight + 80}px) rotate(${Math.random() * 360}deg)`;
+                        span.style.opacity = '0.98';
+                    }, 20);
+
+                    setTimeout(() => span.remove(), 2200);
+                }
+            }, 20);
+        }
+
+        // Initial check on load
+        if (!checkInstantUnlock()) {
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
+        }
+    </script>
+</body>
+</html>
